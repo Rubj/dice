@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dfthu21s6meiu"
+path="res://.godot/imported/d6 esimene katsetus.obj-420d1964fdf9de55014f01706157810f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/d6 esimene katsetus.obj-420d1964fdf9de55014f01706157810f.mesh"]
+
+source_file="res://art/dice/d6/d6 esimene katsetus.obj"
+dest_files=["res://.godot/imported/d6 esimene katsetus.obj-420d1964fdf9de55014f01706157810f.mesh", "res://.godot/imported/d6 esimene katsetus.obj-420d1964fdf9de55014f01706157810f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

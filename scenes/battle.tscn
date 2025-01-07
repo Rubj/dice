@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://di7xtsgoeeeqh"]
+
+[ext_resource type="ArrayMesh" uid="uid://dfthu21s6meiu" path="res://art/dice/d6/d6 esimene katsetus.obj" id="1_g8vr3"]
+[ext_resource type="Texture2D" uid="uid://5m1nptwxhd6i" path="res://art/dice/d6/d6 esimene katse_d6.png" id="2_yapo8"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sjvqm"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gb0gb"]
+albedo_texture = ExtResource("2_yapo8")
+roughness = 0.6
+
+[node name="Battle" type="Node2D"]
+
+[node name="DiceRollWindow" type="Node" parent="."]
+
+[node name="BoxContainer" type="BoxContainer" parent="DiceRollWindow"]
+custom_minimum_size = Vector2(600, 400)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="DiceRollWindow/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = SubResource("ViewportTexture_sjvqm")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+msaa_3d = 1
+scaling_3d_scale = 2.0
+size = Vector2i(300, 200)
+
+[node name="D6EsimeneKatsetus" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(0.196678, 0, 0, 0, 0.196678, 0, 0, 0, 0.196678, 0, 0, 0)
+mesh = ExtResource("1_g8vr3")
+surface_material_override/0 = SubResource("StandardMaterial3D_gb0gb")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 6, 0)
+fov = 15.0
