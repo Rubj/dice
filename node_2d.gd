@@ -15,13 +15,13 @@ func _process(delta):
 		pass
 	
 	if state == "veereta":
-		stateVeeretaTick();
+		stateVeeretaTick(Input.is_action_just_released("click"));
 	elif state == "pood":
 		statePoodTick();
 	#elif state ==
 
-func stateVeeretaTick():
-	if Input.is_action_just_released("click"):
+func stateVeeretaTick(vise: bool):
+	if vise:
 		veereta();
 
 func veereta():
