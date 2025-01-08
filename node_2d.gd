@@ -12,7 +12,7 @@ func _ready():
 	viskeid = 5; #todo move to battle init
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if state == "no-input":
 		pass
 	
@@ -43,6 +43,7 @@ func veeretaTaringuid(ds: Array[Taring]):
 	for d in ds:
 		d.roll();
 	print(str(ds.map(func(d): return d.current_side)) + " || viskeid jäänud: " + str(viskeid));
+
 #func battleInit
 func battleEnd():
 	state_just_changed = true;
