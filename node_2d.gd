@@ -44,17 +44,26 @@ func veereta():
 	veeretaTaringuid(myDice);
 
 func veeretaTaringuid(ds: Array[Taring]):
-	for d in ds:
+	var subViewport: SubViewport = get_child(0).get_child(1);
+	var taringD6: MeshInstance3D = subViewport.get_child(0);
+	var left_side: float = -0.5;
+	taringD6.position = Vector3(left_side, 0, 0);
+	var taringud: Array[MeshInstance3D] = [taringD6];
+	for i in range(ds.size()):
+		var d = ds[i];
 		d.roll();
-	turnD6(ds[0].current_side);
+		if (taringud.size() < (i + 1)):
+			var t: MeshInstance3D = taringD6.duplicate();
+			subViewport.add_child(t);
+			t.position = Vector3(left_side + (i*0.5), 0, 0);
+			taringud.push_back(t);
+		turnD6(d.current_side, taringud[i]);
 	print(str(ds.map(func(d): return d.current_side)) + " || viskeid jäänud: " + str(viskeid));
 
-func turnD6(v: int): #todo move to render logic
-	var taring: MeshInstance3D = get_child(0).get_child(1).get_child(0); #D6EsimeneKatsetus
-
+func turnD6(v: int, taring: MeshInstance3D): #todo move to render logic
 	if v == 6:
 		taring.rotation_degrees = Vector3(0, 0, 0);
-	if v == 5:
+	elif v == 5:
 		taring.rotation_degrees = Vector3(90, 0, 0);
 	elif v == 1:
 		taring.rotation_degrees = Vector3(180, 0, 0);
