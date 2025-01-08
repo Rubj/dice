@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=6 format=3 uid="uid://di7xtsgoeeeqh"]
 
 [ext_resource type="ArrayMesh" uid="uid://dfthu21s6meiu" path="res://art/dice/d6/d6 esimene katsetus.obj" id="1_g8vr3"]
 [ext_resource type="Texture2D" uid="uid://5m1nptwxhd6i" path="res://art/dice/d6/d6 esimene katse_d6.png" id="2_yapo8"]
+[ext_resource type="StyleBox" uid="uid://855g4xw60h8r" path="res://panel_stylebox_transparent.tres" id="4_n4mnt"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_sjvqm"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_cr16a"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gb0gb"]
@@ -11,6 +12,7 @@ albedo_texture = ExtResource("2_yapo8")
 roughness = 0.6
 
 [node name="Battle" type="Node2D"]
+metadata/_edit_lock_ = true
 
 [node name="DiceRollWindow" type="Node" parent="."]
 
@@ -28,18 +30,34 @@ alignment = 1
 [node name="TextureRect" type="TextureRect" parent="DiceRollWindow/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = SubResource("ViewportTexture_sjvqm")
+texture = SubResource("ViewportTexture_cr16a")
+stretch_mode = 3
 
 [node name="SubViewport" type="SubViewport" parent="."]
-msaa_3d = 1
-scaling_3d_scale = 2.0
-size = Vector2i(300, 200)
+size = Vector2i(600, 400)
 
 [node name="D6EsimeneKatsetus" type="MeshInstance3D" parent="SubViewport"]
 transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, 0, 0, 0)
 mesh = ExtResource("1_g8vr3")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_gb0gb")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 6, 0)
 fov = 15.0
+
+[node name="Panel" type="Panel" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -265.0
+offset_top = -162.5
+offset_right = 265.0
+offset_bottom = 162.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("4_n4mnt")
