@@ -36,7 +36,7 @@ scaling_3d_scale = 2.0
 size = Vector2i(300, 200)
 
 [node name="D6EsimeneKatsetus" type="MeshInstance3D" parent="SubViewport"]
-transform = Transform3D(0.196678, 0, 0, 0, 0.196678, 0, 0, 0, 0.196678, 0, 0, 0)
+transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, 0, 0, 0)
 mesh = ExtResource("1_g8vr3")
 surface_material_override/0 = SubResource("StandardMaterial3D_gb0gb")
 
