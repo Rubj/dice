@@ -97,6 +97,12 @@ mesh = ExtResource("4_0urh1")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_g8dx1")
 
+[node name="D20Katse" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, -3.16154, 0.174208, -0.0836678)
+mesh = ExtResource("7_pqqv7")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_bjs6m")
+
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 6, 0)
 fov = 15.0
@@ -133,9 +139,3 @@ light_energy = 2.0
 light_size = 0.004
 shadow_enabled = true
 shadow_blur = 6.0
-
-[node name="D20Katse" type="MeshInstance3D" parent="SubViewport"]
-transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, -3.16154, 0.174208, -0.0836678)
-mesh = ExtResource("7_pqqv7")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_bjs6m")
