@@ -1,8 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=13 format=3 uid="uid://di7xtsgoeeeqh"]
 
 [ext_resource type="ArrayMesh" uid="uid://dfthu21s6meiu" path="res://art/dice/d6/d6 esimene katsetus.obj" id="1_g8vr3"]
+[ext_resource type="StyleBox" uid="uid://tnojy1ej1mt4" path="res://art/UI/ui_frame.tres" id="1_wsk88"]
 [ext_resource type="Texture2D" uid="uid://5m1nptwxhd6i" path="res://art/dice/d6/d6 esimene katse_d6.png" id="2_yapo8"]
+[ext_resource type="ArrayMesh" uid="uid://c8eipugj6n1f2" path="res://art/dice_roll_table/dice roll table.obj" id="4_0urh1"]
 [ext_resource type="StyleBox" uid="uid://855g4xw60h8r" path="res://panel_stylebox_transparent.tres" id="4_n4mnt"]
+[ext_resource type="Texture2D" uid="uid://cajfvmaoymbqu" path="res://art/dice_roll_table/dice roll table texture.png" id="5_wg6qf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87a7c"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_8w6wh"]
+sky_material = SubResource("ProceduralSkyMaterial_87a7c")
+
+[sub_resource type="Environment" id="Environment_65kvg"]
+background_mode = 2
+sky = SubResource("Sky_8w6wh")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cr16a"]
 viewport_path = NodePath("SubViewport")
@@ -11,8 +27,18 @@ viewport_path = NodePath("SubViewport")
 albedo_texture = ExtResource("2_yapo8")
 roughness = 0.6
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8dx1"]
+albedo_texture = ExtResource("5_wg6qf")
+
 [node name="Battle" type="Node2D"]
 metadata/_edit_lock_ = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.453889, 0.209726, 0, 0.419452, 0.907777, -0.5, 0.786158, -0.363256, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_65kvg")
 
 [node name="DiceRollWindow" type="Node" parent="."]
 
@@ -23,6 +49,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -450.0
+offset_right = 300.0
+offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
@@ -33,6 +63,17 @@ size_flags_horizontal = 3
 texture = SubResource("ViewportTexture_cr16a")
 stretch_mode = 3
 
+[node name="Panel" type="Panel" parent="DiceRollWindow/BoxContainer/TextureRect"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("1_wsk88")
+
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(600, 400)
 
@@ -42,11 +83,19 @@ mesh = ExtResource("1_g8vr3")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_gb0gb")
 
+[node name="DiceRollTable" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.2, 0)
+cast_shadow = 0
+mesh = ExtResource("4_0urh1")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_g8dx1")
+
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 6, 0)
 fov = 15.0
 
-[node name="Panel" type="Panel" parent="SubViewport"]
+[node name="Panel OLD" type="Panel" parent="SubViewport"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -61,3 +110,19 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("4_n4mnt")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10124, 1.45449, 0.637715)
+light_color = Color(0.817629, 0.65573, 0.945481, 1)
+light_energy = 3.0
+light_size = 0.004
+shadow_enabled = true
+shadow_blur = 6.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15954, 1.43707, -0.65677)
+light_color = Color(0.817629, 0.65573, 0.945481, 1)
+light_energy = 2.0
+light_size = 0.004
+shadow_enabled = true
+shadow_blur = 6.0
