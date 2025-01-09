@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=16 format=3 uid="uid://di7xtsgoeeeqh"]
 
 [ext_resource type="ArrayMesh" uid="uid://dfthu21s6meiu" path="res://art/dice/d6/d6 esimene katsetus.obj" id="1_g8vr3"]
 [ext_resource type="StyleBox" uid="uid://tnojy1ej1mt4" path="res://art/UI/ui_frame.tres" id="1_wsk88"]
@@ -6,6 +6,8 @@
 [ext_resource type="ArrayMesh" uid="uid://c8eipugj6n1f2" path="res://art/dice_roll_table/dice roll table.obj" id="4_0urh1"]
 [ext_resource type="StyleBox" uid="uid://855g4xw60h8r" path="res://panel_stylebox_transparent.tres" id="4_n4mnt"]
 [ext_resource type="Texture2D" uid="uid://cajfvmaoymbqu" path="res://art/dice_roll_table/dice roll table texture.png" id="5_wg6qf"]
+[ext_resource type="ArrayMesh" uid="uid://bdua2e0pyt2cv" path="res://art/dice/d20/d20 katse.obj" id="7_pqqv7"]
+[ext_resource type="Texture2D" uid="uid://1f8kegvijykh" path="res://art/dice/d20/d20 katse texture.png" id="8_p6ech"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87a7c"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -29,6 +31,11 @@ roughness = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8dx1"]
 albedo_texture = ExtResource("5_wg6qf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bjs6m"]
+diffuse_mode = 3
+albedo_texture = ExtResource("8_p6ech")
+roughness = 0.5
 
 [node name="Battle" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -126,3 +133,9 @@ light_energy = 2.0
 light_size = 0.004
 shadow_enabled = true
 shadow_blur = 6.0
+
+[node name="D20Katse" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, -3.16154, 0.174208, -0.0836678)
+mesh = ExtResource("7_pqqv7")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_bjs6m")
