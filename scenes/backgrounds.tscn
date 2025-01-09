@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvg1qy47ch4f2"]
+
+[ext_resource type="Texture2D" uid="uid://c46btmntyh6fc" path="res://art/backgrounds/background art mushroom cave.png" id="1_a05ue"]
+
+[node name="Backgrounds" type="Node2D"]
+
+[node name="MushroomCaveBG" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("1_a05ue")
+centered = false

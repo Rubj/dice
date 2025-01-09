@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=17 format=3 uid="uid://di7xtsgoeeeqh"]
 
 [ext_resource type="ArrayMesh" uid="uid://dfthu21s6meiu" path="res://art/dice/d6/d6 esimene katsetus.obj" id="1_g8vr3"]
 [ext_resource type="StyleBox" uid="uid://tnojy1ej1mt4" path="res://art/UI/ui_frame.tres" id="1_wsk88"]
@@ -8,19 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cajfvmaoymbqu" path="res://art/dice_roll_table/dice roll table texture.png" id="5_wg6qf"]
 [ext_resource type="ArrayMesh" uid="uid://bdua2e0pyt2cv" path="res://art/dice/d20/d20 katse.obj" id="7_pqqv7"]
 [ext_resource type="Texture2D" uid="uid://1f8kegvijykh" path="res://art/dice/d20/d20 katse texture.png" id="8_p6ech"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87a7c"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_8w6wh"]
-sky_material = SubResource("ProceduralSkyMaterial_87a7c")
-
-[sub_resource type="Environment" id="Environment_65kvg"]
-background_mode = 2
-sky = SubResource("Sky_8w6wh")
-tonemap_mode = 2
-glow_enabled = true
+[ext_resource type="PackedScene" uid="uid://dvg1qy47ch4f2" path="res://scenes/backgrounds.tscn" id="9_dycxt"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cr16a"]
 viewport_path = NodePath("SubViewport")
@@ -37,15 +25,23 @@ diffuse_mode = 3
 albedo_texture = ExtResource("8_p6ech")
 roughness = 0.5
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87a7c"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_8w6wh"]
+sky_material = SubResource("ProceduralSkyMaterial_87a7c")
+
+[sub_resource type="Environment" id="Environment_65kvg"]
+background_mode = 2
+sky = SubResource("Sky_8w6wh")
+tonemap_mode = 2
+glow_enabled = true
+adjustment_enabled = true
+adjustment_contrast = 1.12
+
 [node name="Battle" type="Node2D"]
 metadata/_edit_lock_ = true
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.453889, 0.209726, 0, 0.419452, 0.907777, -0.5, 0.786158, -0.363256, 0, 0, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_65kvg")
 
 [node name="DiceRollWindow" type="Node" parent="."]
 
@@ -107,17 +103,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_bjs6m")
 transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 6, 0)
 fov = 15.0
 
-[node name="Panel OLD" type="Panel" parent="SubViewport"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -265.0
-offset_top = -162.5
-offset_right = 265.0
-offset_bottom = 162.5
+[node name="Panel" type="Panel" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -127,7 +116,7 @@ theme_override_styles/panel = ExtResource("4_n4mnt")
 [node name="OmniLight3D" type="OmniLight3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10124, 1.45449, 0.637715)
 light_color = Color(0.817629, 0.65573, 0.945481, 1)
-light_energy = 3.0
+light_energy = 0.5
 light_size = 0.004
 shadow_enabled = true
 shadow_blur = 6.0
@@ -139,3 +128,25 @@ light_energy = 2.0
 light_size = 0.004
 shadow_enabled = true
 shadow_blur = 6.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(-0.866025, -0.453889, 0.209726, 0, 0.419452, 0.907777, -0.5, 0.786158, -0.363256, 0, 0, 0)
+light_color = Color(1, 0.470704, 0.860444, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_65kvg")
+
+[node name="WindowFrame and BG" type="BoxContainer" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="WindowFrame and BG"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("4_n4mnt")
+metadata/_edit_lock_ = true
+
+[node name="Backgrounds" parent="WindowFrame and BG" instance=ExtResource("9_dycxt")]
