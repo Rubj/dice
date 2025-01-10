@@ -101,7 +101,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_bjs6m")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 6, 0)
-fov = 15.0
+fov = 20.0
 
 [node name="Panel" type="Panel" parent="SubViewport"]
 anchors_preset = 15
@@ -150,3 +150,4 @@ theme_override_styles/panel = ExtResource("4_n4mnt")
 metadata/_edit_lock_ = true
 
 [node name="Backgrounds" parent="WindowFrame and BG" instance=ExtResource("9_dycxt")]
+metadata/_edit_lock_ = true

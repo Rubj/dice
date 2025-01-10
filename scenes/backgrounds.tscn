@@ -1,8 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvg1qy47ch4f2"]
+[gd_scene load_steps=3 format=3 uid="uid://dvg1qy47ch4f2"]
 
 [ext_resource type="Texture2D" uid="uid://c46btmntyh6fc" path="res://art/backgrounds/background art mushroom cave.png" id="1_a05ue"]
 
+[sub_resource type="Environment" id="Environment_32gwx"]
+background_mode = 3
+tonemap_mode = 3
+tonemap_exposure = 0.94
+glow_enabled = true
+glow_intensity = 1.53
+glow_strength = 1.53
+glow_blend_mode = 0
+glow_hdr_threshold = 0.98
+glow_hdr_scale = 2.11
+adjustment_enabled = true
+adjustment_saturation = 0.85
+
 [node name="Backgrounds" type="Node2D"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.9472, 0.947199, 0.947199, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_32gwx")
 
 [node name="MushroomCaveBG" type="Sprite2D" parent="."]
 z_index = -1
