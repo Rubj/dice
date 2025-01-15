@@ -10,7 +10,7 @@ var battleScene: PackedScene;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#todo load from savefile
-	myDice = [Taring.new(), Taring.new(), Taring.new()];
+	myDice = [Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new()]; #5d6
 	viskeid = 5; #todo move to battle init add_child(battleScene.instantiate());
 	battleScene = preload("res://scenes/battle.tscn");
 
