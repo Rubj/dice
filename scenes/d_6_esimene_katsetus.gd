@@ -37,3 +37,7 @@ func _on_static_body_3d_mouse_exited():
 	mouse_is_on = false;
 	outline.set_visible(false);
 	print(outline.is_visible_in_tree())
+
+func setSelected(v: bool):
+	mouse_is_on = v;
+	outline.set_visible(v);

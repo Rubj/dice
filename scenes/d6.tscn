@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=4 uid="uid://dkxnb5mylpkqq"]
 
-[ext_resource type="ArrayMesh" uid="uid://dfthu21s6meiu" path="res://art/dice/d6/d6 esimene katsetus.obj" id="1_jv16b"]
-[ext_resource type="Texture2D" uid="uid://5m1nptwxhd6i" path="res://art/dice/d6/d6 esimene katse_d6.png" id="2_1rrmu"]
-[ext_resource type="Script" path="res://scenes/d_6_esimene_katsetus.gd" id="3_07ks5"]
+[ext_resource type="ArrayMesh" uid="uid://dfthu21s6meiu" path="res://art/dice/d6/d6 esimene katsetus.obj" id="1_2na5o"]
+[ext_resource type="Texture2D" uid="uid://5m1nptwxhd6i" path="res://art/dice/d6/d6 esimene katse_d6.png" id="2_221xa"]
+[ext_resource type="Script" path="res://scenes/d_6_esimene_katsetus.gd" id="3_0wpgq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gb0gb"]
-albedo_texture = ExtResource("2_1rrmu")
+albedo_texture = ExtResource("2_221xa")
 roughness = 0.6
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_su63l"]
@@ -25,10 +25,10 @@ _surfaces = [{
 
 [node name="D6EsimeneKatsetus" type="MeshInstance3D"]
 transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, 0, 0, 0)
-mesh = ExtResource("1_jv16b")
+mesh = ExtResource("1_2na5o")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_gb0gb")
-script = ExtResource("3_07ks5")
+script = ExtResource("3_0wpgq")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -41,5 +41,4 @@ mesh = SubResource("ArrayMesh_f0gsf")
 
 [connection signal="input_event" from="StaticBody3D" to="." method="_on_static_body_3d_input_event"]
 [connection signal="mouse_entered" from="StaticBody3D" to="." method="_on_static_body_3d_mouse_entered"]
-[connection signal="mouse_exited" from="StaticBody3D" to="." method="_on_static_body_2d_mouse_exited"]
 [connection signal="mouse_exited" from="StaticBody3D" to="." method="_on_static_body_3d_mouse_exited"]

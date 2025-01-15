@@ -1,12 +1,12 @@
 extends Node3D
 
 var state_just_changed: bool = true;
-enum St {NoInput,Lahing,YourTurn,EnemyTurn,Pood, Test};
+enum St {NoInput,Lahing,YourTurn,EnemyTurn,Pood,Vali, Test};
 var state: St = St.Lahing;
 var myDice: Array[Taring] = [];
 var viskeid: int;
 var battleScene: Node3D;
-@onready var D6: PackedScene = preload("res://d6.tscn");
+@onready var D6: PackedScene = preload("res://scenes/d6.tscn");
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,7 +17,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if state == St.NoInput:
+	if state in [St.NoInput]:
 		pass
 
 	if state == St.Lahing:
@@ -25,11 +25,13 @@ func _process(_delta):
 			#add_child(battleScene);
 			battleScene.set_visible(true);
 			state_just_changed = false;
-
 		stateVeeretaTick(Input.is_action_just_released("click"), viskeid);
 	elif state == St.Pood:
 		statePoodTick(state_just_changed);
-	#elif state ==
+	elif state == St.Vali:
+		if (Input.is_action_just_released("click")):
+			var a = battleScene.get_node("D6"+str(randi_range(1,myDice.size())));
+			a.setSelected(false); #pooleli todo
 
 
 
@@ -47,8 +49,8 @@ func veereta():
 	veeretaTaringuid(myDice);
 
 func veeretaTaringuid(ds: Array[Taring]):
-	var subViewport: Node3D = get_node("Battle");
-	var taringD6: MeshInstance3D = subViewport.get_node("D6");
+	var battleScene: Node3D = get_node("Battle");
+	var taringD6: MeshInstance3D = battleScene.get_node("D6");
 	var left_side: float = -1;
 	taringD6.position = Vector3(left_side, 0, 0);
 	var taringud: Array[MeshInstance3D] = [taringD6];
@@ -58,13 +60,15 @@ func veeretaTaringuid(ds: Array[Taring]):
 		if (taringud.size() < (i + 1)):
 			var t: MeshInstance3D = D6.instantiate();
 			t.name = "D6"+str(i);
-			subViewport.add_child(t);
+			battleScene.add_child(t);
+			t.set_owner(battleScene);
 			t.position = Vector3(left_side + (i*0.5), 0, 0);
 			taringud.push_back(t);
 		var t2 = taringud[i];
 		if (i > 0): #todo remove if starting with empty board and test dice removed
-			t2 = subViewport.get_node("D6"+str(i));
+			t2 = battleScene.get_node("D6"+str(i));
 		turnD6(d.current_side, t2);
+	state = St.Vali
 	print(str(ds.map(func(d): return d.current_side)) + " || viskeid jäänud: " + str(viskeid));
 
 func turnD6(v: int, t: MeshInstance3D): #todo move to render logic

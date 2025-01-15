@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=16 format=3 uid="uid://di7xtsgoeeeqh"]
 
 [ext_resource type="StyleBox" uid="uid://tnojy1ej1mt4" path="res://art/UI/ui_frame.tres" id="1_wsk88"]
-[ext_resource type="PackedScene" uid="uid://dkxnb5mylpkqq" path="res://d6.tscn" id="2_7fnvy"]
+[ext_resource type="PackedScene" uid="uid://dkxnb5mylpkqq" path="res://scenes/d6.tscn" id="2_7fnvy"]
 [ext_resource type="ArrayMesh" uid="uid://c8eipugj6n1f2" path="res://art/dice_roll_table/dice roll table.obj" id="4_0urh1"]
 [ext_resource type="StyleBox" uid="uid://855g4xw60h8r" path="res://panel_stylebox_transparent.tres" id="4_n4mnt"]
 [ext_resource type="Texture2D" uid="uid://cajfvmaoymbqu" path="res://art/dice_roll_table/dice roll table texture.png" id="5_wg6qf"]
@@ -19,6 +19,8 @@ albedo_texture = ExtResource("5_wg6qf")
 diffuse_mode = 3
 albedo_texture = ExtResource("8_p6ech")
 roughness = 0.5
+
+[sub_resource type="Environment" id="Environment_24bpn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87a7c"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -76,8 +78,6 @@ theme_override_styles/panel = ExtResource("1_wsk88")
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(600, 400)
 
-[node name="D6" parent="SubViewport" instance=ExtResource("2_7fnvy")]
-
 [node name="DiceRollTable" type="MeshInstance3D" parent="SubViewport"]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.2, 0)
 cast_shadow = 0
@@ -93,6 +93,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_bjs6m")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 6, 0)
+environment = SubResource("Environment_24bpn")
 current = true
 fov = 20.0
 
@@ -131,13 +132,16 @@ shadow_enabled = true
 environment = SubResource("Environment_65kvg")
 
 [node name="WindowFrame and BG" type="BoxContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
 
 [node name="Panel" type="Panel" parent="WindowFrame and BG"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("4_n4mnt")
 
 [node name="Backgrounds" parent="WindowFrame and BG" instance=ExtResource("9_dycxt")]
+visible = false
