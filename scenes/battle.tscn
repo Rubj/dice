@@ -43,7 +43,7 @@ glow_enabled = true
 adjustment_enabled = true
 adjustment_contrast = 1.12
 
-[node name="Battle" type="Node2D"]
+[node name="Battle" type="Node3D"]
 script = ExtResource("1_vvcs1")
 
 [node name="DiceRollWindow" type="Node" parent="."]
@@ -115,6 +115,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_bjs6m")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 6, 0)
+current = true
 fov = 20.0
 
 [node name="Panel" type="Panel" parent="SubViewport"]
