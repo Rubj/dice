@@ -74,7 +74,7 @@ theme_override_styles/panel = ExtResource("1_wsk88")
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(600, 400)
 
-[node name="D6EsimeneKatsetus" parent="SubViewport" instance=ExtResource("2_7fnvy")]
+[node name="D6" parent="SubViewport" instance=ExtResource("2_7fnvy")]
 
 [node name="DiceRollTable" type="MeshInstance3D" parent="SubViewport"]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.2, 0)

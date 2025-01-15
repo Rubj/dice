@@ -5,7 +5,7 @@ enum St {NoInput,Lahing,YourTurn,EnemyTurn,Pood, Test};
 var state: St = St.Lahing;
 var myDice: Array[Taring] = [];
 var viskeid: int;
-var battleScene: Node2D;
+var battleScene: Node3D;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,9 +46,9 @@ func veereta():
 	veeretaTaringuid(myDice);
 
 func veeretaTaringuid(ds: Array[Taring]):
-	var subViewport: SubViewport = get_child(0).get_child(1);
-	var taringD6: MeshInstance3D = subViewport.get_child(0);
-	var left_side: float = -0.5;
+	var subViewport: SubViewport = get_node("Battle/SubViewport");
+	var taringD6: MeshInstance3D = subViewport.get_node("D6");
+	var left_side: float = -1;
 	taringD6.position = Vector3(left_side, 0, 0);
 	var taringud: Array[MeshInstance3D] = [taringD6];
 	for i in range(ds.size()):
