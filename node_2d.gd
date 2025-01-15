@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 
 var state_just_changed: bool = true;
 enum St {NoInput,Lahing,YourTurn,EnemyTurn,Pood, Test};

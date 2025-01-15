@@ -3,8 +3,10 @@
 [ext_resource type="Script" path="res://node_2d.gd" id="1_bpk2b"]
 [ext_resource type="PackedScene" uid="uid://di7xtsgoeeeqh" path="res://scenes/battle.tscn" id="2_yf27q"]
 
-[node name="Node2D" type="Node2D"]
+[node name="GAME" type="Node3D"]
 script = ExtResource("1_bpk2b")
+
+[node name="CanvasLayer_2dUI" type="CanvasLayer" parent="."]
 
 [node name="Battle" parent="." instance=ExtResource("2_yf27q")]
 visible = false
