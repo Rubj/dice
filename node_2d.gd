@@ -47,7 +47,7 @@ func veereta():
 	veeretaTaringuid(myDice);
 
 func veeretaTaringuid(ds: Array[Taring]):
-	var subViewport: SubViewport = get_node("Battle/SubViewport");
+	var subViewport: Node3D = get_node("Battle");
 	var taringD6: MeshInstance3D = subViewport.get_node("D6");
 	var left_side: float = -1;
 	taringD6.position = Vector3(left_side, 0, 0);

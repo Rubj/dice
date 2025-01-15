@@ -37,6 +37,8 @@ adjustment_contrast = 1.12
 
 [node name="Battle" type="Node3D"]
 
+[node name="D6" parent="." instance=ExtResource("2_7fnvy")]
+
 [node name="DiceRollWindow" type="Node" parent="."]
 
 [node name="BoxContainer" type="BoxContainer" parent="DiceRollWindow"]
