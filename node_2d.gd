@@ -1,8 +1,8 @@
 extends Node2D
 
 var state_just_changed: bool = true;
-enum St {NoInput,Lahing,YourTurn,EnemyTurn,Pood};
-var state: St;
+enum St {NoInput,Lahing,YourTurn,EnemyTurn,Pood, Test};
+var state: St = St.Lahing;
 var myDice: Array[Taring] = [];
 var viskeid: int;
 var battleScene: PackedScene;
