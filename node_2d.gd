@@ -26,12 +26,12 @@ func _process(_delta):
 			battleScene.set_visible(true);
 			state_just_changed = false;
 		stateVeeretaTick(Input.is_action_just_released("click"), viskeid);
+	elif state == St.Vali:
+		if (Input.is_action_just_released("click")): #&& mouse coordinates
+			var a = battleScene.get_node("D6"+str(randi_range(1,myDice.size()-1)));
+			a.setSelected(false); #pooleli todo
 	elif state == St.Pood:
 		statePoodTick(state_just_changed);
-	elif state == St.Vali:
-		if (Input.is_action_just_released("click")):
-			var a = battleScene.get_node("D6"+str(randi_range(1,myDice.size())));
-			a.setSelected(false); #pooleli todo
 
 
 
