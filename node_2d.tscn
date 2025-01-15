@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dye1wvi68drqa"]
+[gd_scene load_steps=3 format=3 uid="uid://dye1wvi68drqa"]
 
 [ext_resource type="Script" path="res://node_2d.gd" id="1_bpk2b"]
+[ext_resource type="PackedScene" uid="uid://di7xtsgoeeeqh" path="res://scenes/battle.tscn" id="2_yf27q"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_bpk2b")
+
+[node name="Battle" parent="." instance=ExtResource("2_yf27q")]
+visible = false

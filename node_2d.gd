@@ -5,14 +5,14 @@ enum St {NoInput,Lahing,YourTurn,EnemyTurn,Pood, Test};
 var state: St = St.Lahing;
 var myDice: Array[Taring] = [];
 var viskeid: int;
-var battleScene: PackedScene;
+var battleScene: Node2D;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#todo load from savefile
 	myDice = [Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new()]; #5d6
 	viskeid = 5; #todo move to battle init add_child(battleScene.instantiate());
-	battleScene = preload("res://scenes/battle.tscn");
+	battleScene = get_node("Battle");
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -21,7 +21,8 @@ func _process(_delta):
 
 	if state == St.Lahing:
 		if (state_just_changed):
-			add_child(battleScene.instantiate());
+			#add_child(battleScene);
+			battleScene.set_visible(true);
 			state_just_changed = false;
 
 		stateVeeretaTick(Input.is_action_just_released("click"), viskeid);
