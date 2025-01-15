@@ -9,4 +9,3 @@ script = ExtResource("1_bpk2b")
 [node name="CanvasLayer_2dUI" type="CanvasLayer" parent="."]
 
 [node name="Battle" parent="." instance=ExtResource("2_yf27q")]
-visible = false

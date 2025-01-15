@@ -6,6 +6,7 @@ var state: St = St.Lahing;
 var myDice: Array[Taring] = [];
 var viskeid: int;
 var battleScene: Node3D;
+@onready var D6: PackedScene = preload("res://d6.tscn");
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,26 +56,30 @@ func veeretaTaringuid(ds: Array[Taring]):
 		var d = ds[i];
 		d.roll();
 		if (taringud.size() < (i + 1)):
-			var t: MeshInstance3D = taringD6.duplicate();
+			var t: MeshInstance3D = D6.instantiate();
+			t.name = "D6"+str(i);
 			subViewport.add_child(t);
 			t.position = Vector3(left_side + (i*0.5), 0, 0);
 			taringud.push_back(t);
-		turnD6(d.current_side, taringud[i]);
+		var t2 = taringud[i];
+		if (i > 0): #todo remove if starting with empty board and test dice removed
+			t2 = subViewport.get_node("D6"+str(i));
+		turnD6(d.current_side, t2);
 	print(str(ds.map(func(d): return d.current_side)) + " || viskeid jäänud: " + str(viskeid));
 
-func turnD6(v: int, taring: MeshInstance3D): #todo move to render logic
+func turnD6(v: int, t: MeshInstance3D): #todo move to render logic
 	if v == 6:
-		taring.rotation_degrees = Vector3(0, 0, 0);
+		t.rotation_degrees = Vector3(0, 0, 0);
 	elif v == 5:
-		taring.rotation_degrees = Vector3(90, 0, 0);
+		t.rotation_degrees = Vector3(90, 0, 0);
 	elif v == 1:
-		taring.rotation_degrees = Vector3(180, 0, 0);
+		t.rotation_degrees = Vector3(180, 0, 0);
 	elif v == 2:
-		taring.rotation_degrees = Vector3(-90, 0, 0);
+		t.rotation_degrees = Vector3(-90, 0, 0);
 	elif v == 3:
-		taring.rotation_degrees = Vector3(0, 0, 90);
+		t.rotation_degrees = Vector3(0, 0, 90);
 	elif v == 4:
-		taring.rotation_degrees = Vector3(0, 0, -90);
+		t.rotation_degrees = Vector3(0, 0, -90);
 
 
 #func battleInit
