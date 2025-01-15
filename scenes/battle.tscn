@@ -1,6 +1,5 @@
-[gd_scene load_steps=16 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=15 format=3 uid="uid://di7xtsgoeeeqh"]
 
-[ext_resource type="Script" path="res://scenes/battle.gd" id="1_vvcs1"]
 [ext_resource type="StyleBox" uid="uid://tnojy1ej1mt4" path="res://art/UI/ui_frame.tres" id="1_wsk88"]
 [ext_resource type="PackedScene" uid="uid://dkxnb5mylpkqq" path="res://d6.tscn" id="2_7fnvy"]
 [ext_resource type="ArrayMesh" uid="uid://c8eipugj6n1f2" path="res://art/dice_roll_table/dice roll table.obj" id="4_0urh1"]
@@ -37,7 +36,6 @@ adjustment_enabled = true
 adjustment_contrast = 1.12
 
 [node name="Battle" type="Node3D"]
-script = ExtResource("1_vvcs1")
 
 [node name="DiceRollWindow" type="Node" parent="."]
 

@@ -13,7 +13,7 @@ func _process(_delta):
 
 
 func _on_static_body_3d_input_event(camera, event, event_position, normal, shape_idx):
-	print(event) #TODO ARE SIGNALS NOT WORKING BECAUSE OF SUBVIEWPORT???
+	print(event)
 
 func _on_static_body_3d_mouse_entered():
 	mouse_is_on = true;
