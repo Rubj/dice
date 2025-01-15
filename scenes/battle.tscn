@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=16 format=3 uid="uid://di7xtsgoeeeqh"]
 
 [ext_resource type="Script" path="res://scenes/battle.gd" id="1_vvcs1"]
 [ext_resource type="StyleBox" uid="uid://tnojy1ej1mt4" path="res://art/UI/ui_frame.tres" id="1_wsk88"]
@@ -12,13 +12,6 @@
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cr16a"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="QuadMesh" id="QuadMesh_ih0fu"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kqv38"]
-albedo_texture = ExtResource("5_wg6qf")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_aohtb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8dx1"]
 albedo_texture = ExtResource("5_wg6qf")
@@ -79,21 +72,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("1_wsk88")
-
-[node name="LAUDviewportQuad" type="MeshInstance3D" parent="DiceRollWindow"]
-transform = Transform3D(3.5392, 0, 0, 0, -1.02422e-07, 1, 0, -2.34314, -4.37114e-08, 0, 0, 0)
-visible = false
-mesh = SubResource("QuadMesh_ih0fu")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_kqv38")
-
-[node name="Area3D" type="Area3D" parent="DiceRollWindow/LAUDviewportQuad"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, -7.10543e-15, 1, 0, 0, 0)
-visible = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DiceRollWindow/LAUDviewportQuad/Area3D"]
-visible = false
-shape = SubResource("BoxShape3D_aohtb")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(600, 400)
