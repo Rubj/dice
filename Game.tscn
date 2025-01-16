@@ -1,12 +1,22 @@
 [gd_scene load_steps=4 format=3 uid="uid://bt45nyd8atst5"]
 
-[ext_resource type="Script" path="res://node_2d.gd" id="1_ale7h"]
-[ext_resource type="PackedScene" uid="uid://di7xtsgoeeeqh" path="res://scenes/battle.tscn" id="2_8ryca"]
+[ext_resource type="Script" path="res://node_2d.gd" id="1_k7wq5"]
+[ext_resource type="PackedScene" uid="uid://di7xtsgoeeeqh" path="res://scenes/battle.tscn" id="2_5fuwk"]
+
+[sub_resource type="Environment" id="Environment_8xcyk"]
 
 [sub_resource type="Environment" id="Environment_8xcyk"]
 
 [node name="GAME" type="Node3D"]
-script = ExtResource("1_ale7h")
+script = ExtResource("1_k7wq5")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 4.88657, -1.43307)
+environment = SubResource("Environment_8xcyk")
+projection = 1
+current = true
+fov = 20.0
+size = 5.35
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 4.88657, -1.43307)
@@ -18,4 +28,4 @@ size = 5.35
 
 [node name="CanvasLayer_2dUI" type="CanvasLayer" parent="."]
 
-[node name="Battle" parent="." instance=ExtResource("2_8ryca")]
+[node name="Battle" parent="." instance=ExtResource("2_5fuwk")]

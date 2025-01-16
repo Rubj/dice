@@ -1,8 +1,8 @@
 extends Node3D
 
 var state_just_changed: bool = true;
-enum St {NoInput,Lahing,YourTurn,EnemyTurn,Pood,Vali, Test};
-var state: St = St.Lahing;
+enum St {NoInput,Veereta,YourTurn,EnemyTurn,Pood,Vali, Test};
+var state: St = St.Veereta;
 var myDice: Array[Taring] = [];
 var viskeid: int;
 var battleScene: Node3D;
@@ -20,14 +20,16 @@ func _process(_delta):
 	if state in [St.NoInput]:
 		pass
 
-	if state == St.Lahing:
+	if state == St.Veereta:
 		if (state_just_changed):
 			#add_child(battleScene);
 			battleScene.set_visible(true);
 			state_just_changed = false;
 		stateVeeretaTick(Input.is_action_just_released("click"), viskeid);
 	elif state == St.Vali:
-		if (Input.is_action_just_released("click")): #&& mouse coordinates
+		if (Input.is_action_just_released("enter")):
+			state = St.Veereta
+		elif (Input.is_action_just_released("click")): #&& mouse coordinates
 			var a = battleScene.get_node("D6"+str(randi_range(1,myDice.size()-1)));
 			a.setSelected(false); #pooleli todo
 	elif state == St.Pood:
