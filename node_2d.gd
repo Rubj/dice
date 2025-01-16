@@ -4,6 +4,7 @@ var state_just_changed: bool = true;
 enum St {NoInput,Veereta,YourTurn,EnemyTurn,Pood,Vali, Test};
 var state: St = St.Veereta;
 var myDice: Array[Taring] = [];
+var taringud: Array[MeshInstance3D] = [];#taringud käes (vb pole vaja)
 var viskeid: int;
 var battleScene: Node3D;
 @onready var D6: PackedScene = preload("res://scenes/d6.tscn");
@@ -14,6 +15,10 @@ func _ready():
 	myDice = [Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new()]; #5d6
 	viskeid = 5; #todo move to battle init add_child(battleScene.instantiate());
 	battleScene = get_node("Battle");
+	
+	#todo remove if starting with empty board and test dice removed
+	var taringD6: MeshInstance3D = battleScene.get_node("D6");
+	battleScene.remove_child(taringD6);
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -30,8 +35,8 @@ func _process(_delta):
 		if (state_just_changed): state_just_changed = false; #todo state change handler
 		if (Input.is_action_just_released("enter")):
 			endTurn();
-		elif (Input.is_action_just_pressed("click") && battleScene.mouseOnDice.length() > 0): #&& mouse coordinates
-			var a = battleScene.get_node(battleScene.mouseOnDice);
+		elif (Input.is_action_just_pressed("click") && battleScene.mouseOnDiceIndex > -1): #&& mouse coordinates
+			var a = battleScene.get_node("D6"+str(battleScene.mouseOnDiceIndex));
 			a.toggleSelected(); #pooleli todo
 	elif state == St.Pood:
 		statePoodTick(state_just_changed);
@@ -51,24 +56,20 @@ func veereta():
 	veeretaTaringuid(myDice);
 
 func veeretaTaringuid(ds: Array[Taring]):
-	var battleScene: Node3D = get_node("Battle");
-	var taringD6: MeshInstance3D = battleScene.get_node("D6");
 	var left_side: float = -1;
-	taringD6.position = Vector3(left_side, 0, 0);
-	var taringud: Array[MeshInstance3D] = [taringD6];
 	for i in range(ds.size()):
 		var d = ds[i];
 		d.roll();
-		if (taringud.size() < (i + 1)):
+		if (taringud.size() < (i + 1)): #todo move to initialize dice in hand
 			var t: MeshInstance3D = D6.instantiate();
 			t.name = "D6"+str(i);
+			t.my_index = i;
 			battleScene.add_child(t);
 			t.set_owner(battleScene);
 			t.position = Vector3(left_side + (i*0.5), 0, 0);
 			taringud.push_back(t);
 		var t2 = taringud[i];
-		if (i > 0): #todo remove if starting with empty board and test dice removed
-			t2 = battleScene.get_node("D6"+str(i));
+		t2 = battleScene.get_node("D6"+str(i));
 		turnD6(d.current_side, t2);
 	state = St.Vali
 	print(str(ds.map(func(d): return d.current_side)) + " || viskeid jäänud: " + str(viskeid));
