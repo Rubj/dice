@@ -27,14 +27,14 @@ func _process(_delta):
 			state_just_changed = false;
 		stateVeeretaTick(Input.is_action_just_released("click"), viskeid);
 	elif state == St.Vali:
+		if (state_just_changed): state_just_changed = false; #todo state change handler
 		if (Input.is_action_just_released("enter")):
-			state = St.Veereta
-		elif (Input.is_action_just_released("click")): #&& mouse coordinates
-			var a = battleScene.get_node("D6"+str(randi_range(1,myDice.size()-1)));
-			a.setSelected(false); #pooleli todo
+			endTurn();
+		elif (Input.is_action_just_pressed("click") && battleScene.mouseOnDice.length() > 0): #&& mouse coordinates
+			var a = battleScene.get_node(battleScene.mouseOnDice);
+			a.toggleSelected(); #pooleli todo
 	elif state == St.Pood:
 		statePoodTick(state_just_changed);
-
 
 
 func stateVeeretaTick(vise: bool, viskeidJaanud):
@@ -42,7 +42,7 @@ func stateVeeretaTick(vise: bool, viskeidJaanud):
 		state = St.NoInput;
 		battleEnd()
 		return;
-	if vise: #todo vise ainult valitud täringutega kui pole kõik valitud
+	if vise: #MAYBE vise ainult valitud täringutega kui pole kõik valitud?
 		veereta();
 
 func veereta():
@@ -73,7 +73,7 @@ func veeretaTaringuid(ds: Array[Taring]):
 	state = St.Vali
 	print(str(ds.map(func(d): return d.current_side)) + " || viskeid jäänud: " + str(viskeid));
 
-func turnD6(v: int, t: MeshInstance3D): #todo move to render logic
+func turnD6(v: int, t: MeshInstance3D): #todo move to D6 render logic
 	if v == 6:
 		t.rotation_degrees = Vector3(0, 0, 0);
 	elif v == 5:
@@ -87,11 +87,18 @@ func turnD6(v: int, t: MeshInstance3D): #todo move to render logic
 	elif v == 4:
 		t.rotation_degrees = Vector3(0, 0, -90);
 
+func endTurn():
+	if viskeid > 0:
+		state_just_changed = true;
+		state = St.Veereta;
+		return;
+	battleEnd();
 
 #func battleInit
 func battleEnd(): #battleInstance: PackedScene to remove
 	state_just_changed = true;
 	battleScene.set_visible(false);
+	viskeid = 5; #todo oooo
 	state = St.Pood #todo handle next state (map to choose?) stateHandler class
 
 

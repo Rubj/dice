@@ -14,6 +14,7 @@ extends MeshInstance3D
 
 
 var mouse_is_on: bool = false;
+var is_selected: bool = false;
 var outline: MeshInstance3D;
 
 # Called when the node enters the scene tree for the first time.
@@ -30,11 +31,26 @@ func _on_static_body_3d_input_event(camera, event, event_position, normal, shape
 	pass
 
 func _on_static_body_3d_mouse_entered():
-	setSelected(true);
+	mouseOn(true);
 
 func _on_static_body_3d_mouse_exited():
-	setSelected(false);
+	mouseOn(false);
+
+func mouseOn(v: bool):
+	mouse_is_on = v;
+	var d = "";
+	if v: d = self.name;
+	get_parent().mouseOnDice = d;
+	if v: print(d);
+	if is_selected: return;
+	
+	outline.set_visible(v);
 
 func setSelected(v: bool):
-	mouse_is_on = v;
 	outline.set_visible(v);
+	#todo glow for selected
+	is_selected = v;
+
+func toggleSelected():
+	is_selected = !is_selected;
+	outline.set_visible(is_selected);
