@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=14 format=3 uid="uid://di7xtsgoeeeqh"]
 
 [ext_resource type="StyleBox" uid="uid://tnojy1ej1mt4" path="res://art/UI/ui_frame.tres" id="1_wsk88"]
 [ext_resource type="PackedScene" uid="uid://dkxnb5mylpkqq" path="res://scenes/d6.tscn" id="2_7fnvy"]
@@ -24,8 +24,6 @@ glow_enabled = true
 adjustment_enabled = true
 adjustment_contrast = 1.12
 
-[sub_resource type="Environment" id="Environment_24bpn"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8dx1"]
 albedo_texture = ExtResource("5_wg6qf")
 
@@ -38,14 +36,6 @@ roughness = 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_65kvg")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 4.88657, -1.43307)
-environment = SubResource("Environment_24bpn")
-projection = 1
-current = true
-fov = 20.0
-size = 5.35
 
 [node name="D6" parent="." instance=ExtResource("2_7fnvy")]
 
@@ -85,10 +75,12 @@ shadow_enabled = true
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
+mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="WindowFrame and BG"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_n4mnt")
 
 [node name="Backgrounds" parent="WindowFrame and BG" instance=ExtResource("9_dycxt")]
@@ -113,4 +105,5 @@ alignment = 1
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_styles/panel = ExtResource("1_wsk88")

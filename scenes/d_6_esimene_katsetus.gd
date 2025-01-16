@@ -18,7 +18,7 @@ var outline: MeshInstance3D;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	outline = get_child(1);
+	outline = get_node("outline");
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -26,17 +26,14 @@ func _process(_delta):
 
 
 func _on_static_body_3d_input_event(camera, event, event_position, normal, shape_idx):
-	print(event)
+	#print(event)
+	pass
 
 func _on_static_body_3d_mouse_entered():
-	mouse_is_on = true;
-	print(outline.is_visible_in_tree())
-	outline.set_visible(true);
+	setSelected(true);
 
 func _on_static_body_3d_mouse_exited():
-	mouse_is_on = false;
-	outline.set_visible(false);
-	print(outline.is_visible_in_tree())
+	setSelected(false);
 
 func setSelected(v: bool):
 	mouse_is_on = v;
