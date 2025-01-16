@@ -91,7 +91,7 @@ func turnD6(v: int, t: MeshInstance3D): #todo move to render logic
 #func battleInit
 func battleEnd(): #battleInstance: PackedScene to remove
 	state_just_changed = true;
-	remove_child(get_child(0));
+	battleScene.set_visible(false);
 	state = St.Pood #todo handle next state (map to choose?) stateHandler class
 
 
