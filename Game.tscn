@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dye1wvi68drqa"]
+
+[ext_resource type="Script" path="res://node_2d.gd" id="1_7enb3"]
+[ext_resource type="PackedScene" uid="uid://di7xtsgoeeeqh" path="res://scenes/battle.tscn" id="2_4uivc"]
+
+[node name="GAME" type="Node3D"]
+script = ExtResource("1_7enb3")
+
+[node name="CanvasLayer_2dUI" type="CanvasLayer" parent="."]
+
+[node name="Battle" parent="." instance=ExtResource("2_4uivc")]
