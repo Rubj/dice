@@ -3,8 +3,8 @@ extends Node3D
 var state_just_changed: bool = true;
 enum St {NoInput,Veereta,YourTurn,EnemyTurn,Pood,Vali, Test};
 var state: St = St.Veereta;
-var myDice: Array[Taring] = [];
-var taringud: Array[MeshInstance3D] = [];#taringud käes (vb pole vaja)
+var myDice: Array[Taring] = []; #todo replace with var diceInHand: Array[Taring];
+var taringud: Array[MeshInstance3D] = [];#taringud laual todo ilusam godot ref
 var viskeid: int;
 var battleScene: Node3D;
 @onready var D6: PackedScene = preload("res://scenes/d6.tscn");
@@ -65,14 +65,14 @@ func veeretaTaringuid(ds: Array[Taring]):
 			t.name = "D6"+str(i);
 			t.my_index = i;
 			battleScene.add_child(t);
-			t.set_owner(battleScene);
+			t.set_owner(battleScene); #todo add group for better referencing
 			t.position = Vector3(left_side + (i*0.5), 0, 0);
 			taringud.push_back(t);
 		var t2 = taringud[i];
 		t2 = battleScene.get_node("D6"+str(i));
 		turnD6(d.current_side, t2);
 	state = St.Vali
-	print(str(ds.map(func(d): return d.current_side)) + " || viskeid jäänud: " + str(viskeid));
+	print("veeretasid: " + str(ds.map(func(d): return d.current_side)) + " || vali täringud ja vajuta enter. viskeid jäänud: " + str(viskeid));
 
 func turnD6(v: int, t: MeshInstance3D): #todo move to D6 render logic
 	if v == 6:
@@ -89,11 +89,20 @@ func turnD6(v: int, t: MeshInstance3D): #todo move to D6 render logic
 		t.rotation_degrees = Vector3(0, 0, -90);
 
 func endTurn():
+	var selectedDiceIndexes: Array = taringud.filter(func(t): return t.is_selected).map(func(t): return myDice[t.my_index].current_side);
+	calculateCombos(selectedDiceIndexes);
+	for t in taringud: t.setSelected(false);
 	if viskeid > 0:
 		state_just_changed = true;
 		state = St.Veereta;
 		return;
 	battleEnd();
+
+func calculateCombos(diceIndexes: Array):
+	print("valisid: " + str(diceIndexes) + " || click et uuesti veeretada");
+	
+	print("combod: ")
+	pass #todo
 
 #func battleInit
 func battleEnd(): #battleInstance: PackedScene to remove
