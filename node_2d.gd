@@ -12,7 +12,7 @@ var battleScene: Node3D;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#todo load from savefile
-	myDice = [Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new()]; #5d6
+	myDice = [Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new()]; #8d6
 	viskeid = 5; #todo move to battle init add_child(battleScene.instantiate());
 	battleScene = get_node("Battle");
 	
@@ -53,26 +53,29 @@ func stateVeeretaTick(vise: bool, viskeidJaanud):
 func veereta():
 	viskeid -= 1;
 	#todo play animation
-	veeretaTaringuid(myDice);
+	veeretaTaringuid();
 
-func veeretaTaringuid(ds: Array[Taring]):
-	var left_side: float = -1;
-	for i in range(ds.size()):
-		var d = ds[i];
+func veeretaTaringuid():
+	var left_side: float = -0.9;
+	for i in range(myDice.size()):
+		var d = myDice[i];
 		d.roll();
-		if (taringud.size() < (i + 1)): #todo move to initialize dice in hand
+		if (taringud.size() < (i + 1)): #todo move to initialize dice in hand and refactor positioning
 			var t: MeshInstance3D = D6.instantiate();
 			t.name = "D6"+str(i);
 			t.my_index = i;
 			battleScene.add_child(t);
 			t.set_owner(battleScene); #todo add group for better referencing
-			t.position = Vector3(left_side + (i*0.5), 0, 0);
+			if i > 3:
+				t.position = Vector3(left_side + ((i-4)*0.6), 0, 0.3);
+			else:
+				t.position = Vector3(left_side + (i*0.6), 0, -0.3);
 			taringud.push_back(t);
 		var t2 = taringud[i];
 		t2 = battleScene.get_node("D6"+str(i));
 		turnD6(d.current_side, t2);
 	state = St.Vali
-	print("veeretasid: " + str(ds.map(func(d): return d.current_side)) + " || vali täringud ja vajuta enter. viskeid jäänud: " + str(viskeid));
+	print("veeretasid: " + str(myDice.map(func(d): return d.current_side)) + " || vali täringud ja vajuta enter. viskeid jäänud: " + str(viskeid));
 
 func turnD6(v: int, t: MeshInstance3D): #todo move to D6 render logic
 	if v == 6:
