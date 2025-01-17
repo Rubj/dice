@@ -144,7 +144,7 @@ func veeretaTaringuid():
 		t2.setSelected(true);
 		turnD6(d.current_side, t2);
 	state = St.Vali
-	print("veeretasid: " + str(myDice.map(func(d): return d.current_side)) + " || vali täringud ja vajuta enter. viskeid jäänud: " + str(viskeid));
+	print("veeretasid: " + str(myDice.map(func(d): return d.current_side)) + " || kui täringud valitud siis vajuta enter. viskeid jäänud: " + str(viskeid));
 
 func turnD6(v: int, t: MeshInstance3D): #todo move to D6 render logic
 	if v == 6:
@@ -178,7 +178,7 @@ func calculateCombos(diceValues: Array):
 	for c in combos:
 		var ccc = c.calculate(counts);
 		if ccc != "": gotCombos.push_back(ccc);
-	print("combod: " + str(gotCombos));
+	print("valikus sisalduvad combod: " + str(gotCombos));
 	pass #todo
 
 #func battleInit
