@@ -14,7 +14,7 @@ extends MeshInstance3D
 
 var my_index: int;
 var mouse_is_on: bool = false;
-var is_selected: bool = false;
+var is_selected: bool = true;
 var outline: MeshInstance3D;
 
 # Called when the node enters the scene tree for the first time.
