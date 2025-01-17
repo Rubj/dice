@@ -52,7 +52,7 @@ func _ready():
 	viskeid = 5; #todo move to battle init add_child(battleScene.instantiate());
 	combos = [ #todo sort by points, so that always max points are given first, OR let player choose if multible combinations of combos possible
 		Combo.new("Bottom of the Barrel", 350, func(valueCounts: Dictionary): return valueCounts.size() == 1 && valueCounts.has(1)),
-		Combo.new("Top of the World", 350, func(valueCounts: Dictionary): return valueCounts.size() == 1 && valueCounts.has(6)), #todo change values to array of Taring and compare wiht actual sides of the taring
+		Combo.new("Top of the World", 350, func(valueCounts: Dictionary): return valueCounts.size() == 1 && valueCounts.has(6)),
 		Combo.new("Pair", 20, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 2)), #todo what if multiple pairs?
 		Combo.new("Three of a Kind", 50, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 3)),
 		Combo.new("Four of a Kind", 100, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 4)),
@@ -64,7 +64,7 @@ func _ready():
 		Combo.new("Full House", 180, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 2) && valueCounts.values().any(func(c): return c == 3)),
 		Combo.new("Three Pairs", 200, func(valueCounts: Dictionary): return valueCounts.values().find(func(c): return c == 2, 2)),
 		Combo.new("Two Triplets", 250, func(valueCounts: Dictionary): return valueCounts.values().find(func(c): return c == 3, 1)),
-		Combo.new("Stairway to Heaven", 200, stairwayToHeaven) #lisapunkte veel kui samade väärtuste grupid kasvavad 1 võrra
+		Combo.new("Stairway to Heaven", 200, stairwayToHeaven) #TODO NOT IMPLEMENTED. +lisapunkte veel kui samade väärtuste grupid kasvavad 1 võrra
 	];
 	battleScene = get_node("Battle");
 	
