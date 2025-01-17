@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c6r5nobiktvy0"
+path="res://.godot/imported/d4 basic white.obj-0d6b6b795d90d8dc83cc916c60ff55ad.mesh"
+
+[deps]
+
+files=["res://.godot/imported/d4 basic white.obj-0d6b6b795d90d8dc83cc916c60ff55ad.mesh"]
+
+source_file="res://art/dice/d4/d4 basic white.obj"
+dest_files=["res://.godot/imported/d4 basic white.obj-0d6b6b795d90d8dc83cc916c60ff55ad.mesh", "res://.godot/imported/d4 basic white.obj-0d6b6b795d90d8dc83cc916c60ff55ad.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
