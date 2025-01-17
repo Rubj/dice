@@ -53,33 +53,17 @@ func _ready():
 	combos = [ #todo sort by points, so that always max points are given first, OR let player choose if multible combinations of combos possible
 		Combo.new("Bottom of the Barrel", 350, func(valueCounts: Dictionary): return valueCounts.size() == 1 && valueCounts.has(1)),
 		Combo.new("Top of the World", 350, func(valueCounts: Dictionary): return valueCounts.size() == 1 && valueCounts.has(6)), #todo change values to array of Taring and compare wiht actual sides of the taring
-		Combo.new("Pair", 20, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): c == 2)), #todo what if multiple pairs?
-		Combo.new("Three of a Kind", 50, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): c == 3)),
-		Combo.new("Four of a Kind", 100, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): c == 4)),
-		Combo.new("Five of a Kind", 150, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): c == 5)),
-		Combo.new("Six of a Kind", 200, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): c == 6)),
+		Combo.new("Pair", 20, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 2)), #todo what if multiple pairs?
+		Combo.new("Three of a Kind", 50, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 3)),
+		Combo.new("Four of a Kind", 100, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 4)),
+		Combo.new("Five of a Kind", 150, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 5)),
+		Combo.new("Six of a Kind", 200, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 6)),
 		Combo.new("Small Straight", 100, func(v): return jarjest(4, v)),
 		Combo.new("Straight", 120, func(v): return jarjest(5, v)),
 		Combo.new("Extended Straight", 200, func(v): return jarjest(6, v)),
-		Combo.new("Full House", 180, func(valueCounts: Dictionary):
-			return valueCounts.values().any(func(c): c == 2) && valueCounts.values().any(func(c): c == 3)),
-		Combo.new("Three Pairs", 200, func(valueCounts: Dictionary):
-			var counts = valueCounts.values();
-			var pair1 = counts.find(func(c): c == 2);
-			if (pair1 == -1): return;
-			counts.remove_at(pair1);
-			var pair2 = counts.find(func(c): c == 2);
-			if (pair1 == -1): return;
-			counts.remove_at(pair2);
-			var pair3 = counts.find(func(c): c == 2);
-			return pair1 && pair2 && pair3),
-		Combo.new("Two Triplets", 250, func(valueCounts: Dictionary):
-			var counts = valueCounts.values();
-			var t = counts.find(func(c): c == 3);
-			if (t == -1): return;
-			counts.remove_at(t);
-			var t2 = valueCounts.values().filter(func(c): return c != t).find(func(c, index): c == 2);
-			return t && t2),
+		Combo.new("Full House", 180, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 2) && valueCounts.values().any(func(c): return c == 3)),
+		Combo.new("Three Pairs", 200, func(valueCounts: Dictionary): return valueCounts.values().find(func(c): return c == 2, 2)),
+		Combo.new("Two Triplets", 250, func(valueCounts: Dictionary): return valueCounts.values().find(func(c): return c == 3, 1)),
 		Combo.new("Stairway to Heaven", 200, stairwayToHeaven) #lisapunkte veel kui samade väärtuste grupid kasvavad 1 võrra
 	];
 	battleScene = get_node("Battle");
