@@ -118,7 +118,7 @@ func veereta():
 	#todo move to initialize dice in hand and refactor positioning
 	var left_side: float = -0.9;
 	for i in range(myDice.size()):
-		if (taringud.size() < (i + 1)):
+		if (taringud.size() < myDice.size()):
 			var t: MeshInstance3D = D6.instantiate();
 			t.name = "D6"+str(i);
 			t.my_index = i;
@@ -140,7 +140,7 @@ func veeretaTaringuid():
 		#var t2 = taringud[i];
 		var t2: MeshInstance3D = battleScene.get_node("D6"+str(i));
 		t2.set_rotation_degrees(Vector3(0,0,0));
-		#t2.setSelected(true);
+		t2.setSelected(true);
 		turnD6(d.current_side, t2);
 	print("veeretasid: " + str(myDice.map(func(d): return d.current_side)) + " || kui täringud valitud siis vajuta enter. viskeid jäänud: " + str(viskeid));
 
@@ -220,12 +220,3 @@ func spinStateTick(enter: bool, delta):
 			target.rotate_y(-PI/4-randi_range(0, 10));
 		if suund == 5: #back
 			target.rotate_y(+PI/4-randi_range(0, 10));
-
-		var toTarget = target.rotation - rotation;
-		if toTarget != Vector3.ZERO: #TODO ALL THIS IS A PLACEHOLDER
-			var q  = Quaternion(transform.basis);
-			var tq = Quaternion(target.basis); #target.basis.get_rotation_quaternion(); and .orthonormalized() #todo why is this rotating the background???
-			# Interpolate using spherical-linear interpolation (SLERP).
-			transform.basis = Basis(q.slerp(tq, 0.05));		# find halfway point between q and tq and apply back
-		else:
-			target.rotation = rotation;
