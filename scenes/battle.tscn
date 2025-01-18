@@ -73,13 +73,15 @@ transform = Transform3D(-0.866025, -0.453889, 0.209726, 0, 0.419452, 0.907777, -
 light_color = Color(1, 0.470704, 0.860444, 1)
 shadow_enabled = true
 
-[node name="WindowFrame and BG" type="BoxContainer" parent="."]
+[node name="WindowFrame and BG" type="Node3D" parent="."]
+
+[node name="WindowFrameContainer" type="BoxContainer" parent="WindowFrame and BG"]
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="WindowFrame and BG"]
+[node name="WindowFrame" type="Panel" parent="WindowFrame and BG/WindowFrameContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
@@ -88,7 +90,9 @@ theme_override_styles/panel = ExtResource("4_n4mnt")
 [node name="Backgrounds" parent="WindowFrame and BG" instance=ExtResource("9_dycxt")]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, -2, -1.43307)
 
-[node name="DiceRollWindow" type="BoxContainer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RollAreaContainer" type="BoxContainer" parent="CanvasLayer"]
 custom_minimum_size = Vector2(600, 400)
 anchors_preset = 7
 anchor_left = 0.5
@@ -103,7 +107,7 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="WindowFrame" type="Panel" parent="DiceRollWindow"]
+[node name="RollAreaFrame" type="Panel" parent="CanvasLayer/RollAreaContainer"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
