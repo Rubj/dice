@@ -42,8 +42,8 @@ func stairwayToHeaven(valueCounts: Dictionary) -> int: #returns points instead o
 	var keys = valueCounts.keys(); #sort dice values (keys) by how many of each, decending
 	keys.sort_custom(func(a, b): return valueCounts[a] > valueCounts[b]);
 	for i in range(keys.size()-2):
-		print(str(keys[i])+":"+str(valueCounts[keys[i]]), str(keys[i + 1])+":"+str(valueCounts[keys[i + 1]]), str(keys[i + 2])+":"+str(valueCounts[keys[i + 2]]));
-		if valueCounts[keys[i]] > valueCounts[keys[i + 1]] && valueCounts[keys[i + 1]] > valueCounts[keys[i + 2]]: #3 in a row decending
+		if (valueCounts[keys[i]] > valueCounts[keys[i + 1]] && valueCounts[keys[i + 1]] > valueCounts[keys[i + 2]] && keys[i] > keys[i + 1] && keys[i + 1] > keys[i + 2]): #3 groups of decending counts in a row decending
+			print("STAIRWAY: " + str(keys[i])+":"+str(valueCounts[keys[i]]) +","+ str(keys[i + 1])+":"+str(valueCounts[keys[i + 1]]) +","+ str(keys[i + 2])+":"+str(valueCounts[keys[i + 2]]));
 			return 200;
 	return -1;
 
@@ -139,6 +139,13 @@ func veeretaTaringuid():
 		var d = myDice[i];
 		d.roll();
 		#var t2 = taringud[i];
+		#if randi_range(0, 4) < 1:
+		#	if i == 1:
+		#		d.current_side = 1;
+		#	if i == 2 || i == 3:
+		#		d.current_side = 2;
+		#	if i > 3:
+		#		d.current_side = 6;
 		var t2: MeshInstance3D = battleScene.get_node("D6"+str(i));
 		t2.set_rotation_degrees(Vector3(0,0,0));
 		t2.setSelected(true);
