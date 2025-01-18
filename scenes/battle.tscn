@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=15 format=3 uid="uid://di7xtsgoeeeqh"]
 
 [ext_resource type="Script" path="res://scenes/battle.gd" id="1_4oy4p"]
 [ext_resource type="StyleBox" uid="uid://tnojy1ej1mt4" path="res://art/UI/ui_frame.tres" id="1_wsk88"]
@@ -9,8 +9,6 @@
 [ext_resource type="ArrayMesh" uid="uid://bdua2e0pyt2cv" path="res://art/dice/d20/d20 katse.obj" id="7_pqqv7"]
 [ext_resource type="Texture2D" uid="uid://1f8kegvijykh" path="res://art/dice/d20/d20 katse texture.png" id="8_p6ech"]
 [ext_resource type="PackedScene" uid="uid://dvg1qy47ch4f2" path="res://scenes/backgrounds.tscn" id="9_dycxt"]
-[ext_resource type="ArrayMesh" uid="uid://c6r5nobiktvy0" path="res://art/dice/d4/d4 basic white.obj" id="10_q487b"]
-[ext_resource type="Texture2D" uid="uid://xmfue1y8epen" path="res://art/dice/d4/d4basicwhite.jpg" id="11_pbjpl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87a7c"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -33,10 +31,6 @@ albedo_texture = ExtResource("5_wg6qf")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bjs6m"]
 diffuse_mode = 3
 albedo_texture = ExtResource("8_p6ech")
-roughness = 0.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bquou"]
-albedo_texture = ExtResource("11_pbjpl")
 roughness = 0.5
 
 [node name="Battle" type="Node3D"]
@@ -115,8 +109,3 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("1_wsk88")
-
-[node name="D4BasicWhite2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, -6.86148, 0, -0.0657697)
-mesh = ExtResource("10_q487b")
-surface_material_override/0 = SubResource("StandardMaterial3D_bquou")

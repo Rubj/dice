@@ -1,7 +1,7 @@
 extends Node3D
 
 var state_just_changed: bool = true;
-enum St {NoInput,Veereta,YourTurn,EnemyTurn,Pood,Vali, Test};
+enum St {NoInput,Veereta, SpinDice, YourTurn,EnemyTurn,Pood,Vali, Test};
 var state: St = St.Veereta;
 var myDice: Array[Taring] = []; #todo replace with var diceInHand: Array[Taring];
 var taringud: Array[MeshInstance3D] = [];#taringud laual todo ilusam godot ref
@@ -9,6 +9,11 @@ var viskeid: int;
 var combos: Array[Combo] = []
 var battleScene: Node3D;
 @onready var D6: PackedScene = preload("res://scenes/d6.tscn");
+
+
+#for dice spinning
+var maxSpintime: float = 0.7; #sec?
+var spinTimer: float = 0.0;
 
 #todo move all these combo methods to somewhere else
 func countValues(values: Array) -> Dictionary:
@@ -31,14 +36,16 @@ func jarjest(mitu: int, valueCounts: Dictionary): #todo TEST THIS!
 			last_in_order = v;
 			count += 1;
 	return count == mitu;
-func stairwayToHeaven(valueCounts: Dictionary): #should return (extra or all?) points instead of bool?
+func stairwayToHeaven(valueCounts: Dictionary) -> int: #should return (extra or all?) points instead of bool?
 	var keys = valueCounts.keys(); #todo need to sort these by values, not keys
-	var first: int;
-	#print("aaa ",keys);
-	return false;
+	keys.sort_custom(func(a, b): return valueCounts[a] > valueCounts[b]);
+	var firstIndxTocountFromFirst: Dictionary = {0: 0};
+	print(valueCounts);
+	print("aaa TODO",keys);
 	#for c in valueCounts.keys():
 		#if valueCounts[c]
-	
+	return -1;
+
 #func remove_duplicates(arr: Array) -> Array:
 #	var dict := {}
 #	for a in arr:
@@ -64,16 +71,16 @@ func _ready():
 		Combo.new("Full House", 180, func(valueCounts: Dictionary): return valueCounts.values().any(func(c): return c == 2) && valueCounts.values().any(func(c): return c == 3)),
 		Combo.new("Three Pairs", 200, func(valueCounts: Dictionary): return valueCounts.values().find(func(c): return c == 2, 2)),
 		Combo.new("Two Triplets", 250, func(valueCounts: Dictionary): return valueCounts.values().find(func(c): return c == 3, 1)),
-		Combo.new("Stairway to Heaven", 200, stairwayToHeaven) #TODO NOT IMPLEMENTED. +lisapunkte veel kui samade väärtuste grupid kasvavad 1 võrra
+		Combo.new("Stairway to Heaven", 200, stairwayToHeaven) #+50 lisapunkte veel kui samade väärtuste grupid kasvavad 1 võrra või eraldi combo selle jaoks?
 	];
 	battleScene = get_node("Battle");
-	
+
 	#todo remove if starting with empty board and test dice removed
 	var taringD6: MeshInstance3D = battleScene.get_node("D6");
 	battleScene.remove_child(taringD6);
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	if state in [St.NoInput]:
 		pass
 
@@ -84,12 +91,16 @@ func _process(_delta):
 			state_just_changed = false;
 		stateVeeretaTick(Input.is_action_just_released("click"), viskeid);
 	elif state == St.Vali:
-		if (state_just_changed): state_just_changed = false; #todo state change handler
+		if (state_just_changed):
+			state_just_changed = false; #todo state change handler
+			veeretaTaringuid();
 		if (Input.is_action_just_released("enter")):
 			endTurn();
 		elif (Input.is_action_just_pressed("click") && battleScene.mouseOnDiceIndex > -1): #&& mouse coordinates
 			var a = battleScene.get_node("D6"+str(battleScene.mouseOnDiceIndex));
 			a.toggleSelected(); #pooleli todo
+	elif state == St.SpinDice:
+		spinStateTick(state_just_changed, delta);
 	elif state == St.Pood:
 		statePoodTick(state_just_changed);
 
@@ -104,15 +115,10 @@ func stateVeeretaTick(vise: bool, viskeidJaanud):
 
 func veereta():
 	viskeid -= 1;
-	#todo play animation
-	veeretaTaringuid();
-
-func veeretaTaringuid():
+	#todo move to initialize dice in hand and refactor positioning
 	var left_side: float = -0.9;
 	for i in range(myDice.size()):
-		var d = myDice[i];
-		d.roll();
-		if (taringud.size() < (i + 1)): #todo move to initialize dice in hand and refactor positioning
+		if (taringud.size() < (i + 1)):
 			var t: MeshInstance3D = D6.instantiate();
 			t.name = "D6"+str(i);
 			t.my_index = i;
@@ -123,11 +129,19 @@ func veeretaTaringuid():
 			else:
 				t.position = Vector3(left_side + (i*0.6), 0, -0.3);
 			taringud.push_back(t);
-		var t2 = taringud[i];
-		t2 = battleScene.get_node("D6"+str(i));
-		t2.setSelected(true);
+	#todo play animation instead of spin?
+	state = St.SpinDice;
+	state_just_changed = true;
+
+func veeretaTaringuid():
+	for i in range(myDice.size()):
+		var d = myDice[i];
+		d.roll();
+		#var t2 = taringud[i];
+		var t2: MeshInstance3D = battleScene.get_node("D6"+str(i));
+		t2.set_rotation_degrees(Vector3(0,0,0));
+		#t2.setSelected(true);
 		turnD6(d.current_side, t2);
-	state = St.Vali
 	print("veeretasid: " + str(myDice.map(func(d): return d.current_side)) + " || kui täringud valitud siis vajuta enter. viskeid jäänud: " + str(viskeid));
 
 func turnD6(v: int, t: MeshInstance3D): #todo move to D6 render logic
@@ -155,18 +169,19 @@ func endTurn():
 	battleEnd();
 
 func calculateCombos(diceValues: Array):
-	print("valisid: " + str(diceValues) + " || click et uuesti veeretada");
-	
+	print("valisid:    " + str(diceValues) + " || click et uuesti veeretada");
+
 	var counts: Dictionary = countValues(diceValues);
 	var gotCombos: Array = [];
 	for c in combos:
-		var ccc = c.calculate(counts);
-		if ccc != "": gotCombos.push_back(ccc);
+		var res = c.calculate(counts);
+		if res != "": gotCombos.push_back(res);
 	print("valikus sisalduvad combod: " + str(gotCombos));
 	pass #todo
 
 #func battleInit
 func battleEnd(): #battleInstance: PackedScene to remove
+	state = St.NoInput;
 	state_just_changed = true;
 	battleScene.set_visible(false);
 	viskeid = 5; #todo oooo
@@ -181,3 +196,36 @@ func statePoodTick(enter: bool):
 		add_child(text); #todo load
 		print("astusid poodi!");
 	pass
+
+func spinStateTick(enter: bool, delta):
+	if enter:
+		state_just_changed = false;
+		spinTimer = 0.0
+	if spinTimer > maxSpintime:
+		state = St.Vali;
+		state_just_changed = true;
+	var suund = 0;
+	spinTimer += delta;
+	for i in range(taringud.size()):
+		var target = taringud[i];
+		if suund == 1: #left
+			target.rotate_z(+PI/4-randi_range(0, 10)); #todo make these values more sane, value should be close to 0
+		if suund == 0: #right
+			target.rotate_z(-PI/4-randi_range(0, 10));
+		if suund == 2: #top
+			target.rotate_x(-PI/4-randi_range(0, 10));
+		if suund == 3: #bottom
+			target.rotate_x(+PI/4-randi_range(0, 10));
+		if suund == 0: #forward
+			target.rotate_y(-PI/4-randi_range(0, 10));
+		if suund == 5: #back
+			target.rotate_y(+PI/4-randi_range(0, 10));
+
+		var toTarget = target.rotation - rotation;
+		if toTarget != Vector3.ZERO: #TODO ALL THIS IS A PLACEHOLDER
+			var q  = Quaternion(transform.basis);
+			var tq = Quaternion(target.basis); #target.basis.get_rotation_quaternion(); and .orthonormalized() #todo why is this rotating the background???
+			# Interpolate using spherical-linear interpolation (SLERP).
+			transform.basis = Basis(q.slerp(tq, 0.05));		# find halfway point between q and tq and apply back
+		else:
+			target.rotation = rotation;

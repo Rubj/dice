@@ -13,6 +13,7 @@ func calculate(valueCounts: Dictionary) -> String: #todo return name and points,
 	#if (method.is_null()):
 	#	print("COMBO" + name + "DOES NOT HAVE A METHOD TO CALCULATE!");
 	#	return;
-	if method.call(valueCounts):
+	var r = method.call(valueCounts);
+	if typeof(r) == TYPE_BOOL && r:
 		return name + ":" + str(points);
 	return "";
