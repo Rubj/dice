@@ -192,7 +192,7 @@ func battleEnd(): #battleInstance: PackedScene to remove
 	state = St.NoInput;
 	state_just_changed = true;
 	battleScene.set_visible(false);
-	viskeid = 5; #todo oooo
+	viskeid = 10; #todo oooo
 	state = St.Pood #todo handle next state (map to choose?) stateHandler class
 
 
