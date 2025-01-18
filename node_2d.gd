@@ -36,14 +36,15 @@ func jarjest(mitu: int, valueCounts: Dictionary): #todo TEST THIS!
 			last_in_order = v;
 			count += 1;
 	return count == mitu;
-func stairwayToHeaven(valueCounts: Dictionary) -> int: #should return (extra or all?) points instead of bool?
-	var keys = valueCounts.keys(); #todo need to sort these by values, not keys
+func stairwayToHeaven(valueCounts: Dictionary) -> int: #returns points instead of bool
+	if valueCounts.keys().size() < 3: return -1;
+	#var firstIndxTocountFromFirst: Dictionary = {0: 0}; #todo if need to expand from 3 in a row
+	var keys = valueCounts.keys(); #sort dice values (keys) by how many of each, decending
 	keys.sort_custom(func(a, b): return valueCounts[a] > valueCounts[b]);
-	var firstIndxTocountFromFirst: Dictionary = {0: 0};
-	print(valueCounts);
-	print("aaa TODO",keys);
-	#for c in valueCounts.keys():
-		#if valueCounts[c]
+	for i in range(keys.size()-2):
+		print(str(keys[i])+":"+str(valueCounts[keys[i]]), str(keys[i + 1])+":"+str(valueCounts[keys[i + 1]]), str(keys[i + 2])+":"+str(valueCounts[keys[i + 2]]));
+		if valueCounts[keys[i]] > valueCounts[keys[i + 1]] && valueCounts[keys[i + 1]] > valueCounts[keys[i + 2]]: #3 in a row decending
+			return 200;
 	return -1;
 
 #func remove_duplicates(arr: Array) -> Array:

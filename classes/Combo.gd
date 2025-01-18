@@ -14,6 +14,11 @@ func calculate(valueCounts: Dictionary) -> String: #todo return name and points,
 	#	print("COMBO" + name + "DOES NOT HAVE A METHOD TO CALCULATE!");
 	#	return;
 	var r = method.call(valueCounts);
-	if typeof(r) == TYPE_BOOL && r:
-		return name + ":" + str(points);
-	return "";
+	if typeof(r) == TYPE_BOOL:
+		if r: return name + ":" + str(points);
+		return "";
+	elif typeof(r) == TYPE_INT:
+		if r == -1: return "";
+		return name + ":" + str(r);
+	else:
+		return "";
