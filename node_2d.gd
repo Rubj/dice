@@ -57,7 +57,7 @@ func stairwayToHeaven(valueCounts: Dictionary) -> int: #returns points instead o
 func _ready():
 	#todo load from savefile
 	myDice = [Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new(), Taring.new()]; #8d6
-	viskeid = 5; #todo move to battle init add_child(battleScene.instantiate());
+	viskeid = 10; #todo move to battle init add_child(battleScene.instantiate());
 	combos = [ #todo sort by points, so that always max points are given first, OR let player choose if multible combinations of combos possible
 		Combo.new("Bottom of the Barrel", 350, func(valueCounts: Dictionary): return valueCounts.size() == 1 && valueCounts.has(1)),
 		Combo.new("Top of the World", 350, func(valueCounts: Dictionary): return valueCounts.size() == 1 && valueCounts.has(6)),
