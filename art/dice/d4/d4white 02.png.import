@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xmfue1y8epen"
-path.s3tc="res://.godot/imported/d4basicwhite.jpg-b8c0e879b2c97f8554ac768a94b708c2.s3tc.ctex"
+uid="uid://bthr661croie1"
+path.s3tc="res://.godot/imported/d4white 02.png-39fc42bd71b00772d8a80d3aebb1de11.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://art/dice/d4/d4basicwhite.jpg"
-dest_files=["res://.godot/imported/d4basicwhite.jpg-b8c0e879b2c97f8554ac768a94b708c2.s3tc.ctex"]
+source_file="res://art/dice/d4/d4white 02.png"
+dest_files=["res://.godot/imported/d4white 02.png-39fc42bd71b00772d8a80d3aebb1de11.s3tc.ctex"]
 
 [params]
 

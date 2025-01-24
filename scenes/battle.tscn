@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://di7xtsgoeeeqh"]
+[gd_scene load_steps=18 format=3 uid="uid://di7xtsgoeeeqh"]
 
 [ext_resource type="Script" path="res://scenes/battle.gd" id="1_4oy4p"]
 [ext_resource type="StyleBox" uid="uid://tnojy1ej1mt4" path="res://art/UI/ui_frame.tres" id="1_wsk88"]
@@ -6,7 +6,9 @@
 [ext_resource type="ArrayMesh" uid="uid://c8eipugj6n1f2" path="res://art/dice_roll_table/dice roll table.obj" id="4_0urh1"]
 [ext_resource type="StyleBox" uid="uid://855g4xw60h8r" path="res://panel_stylebox_transparent.tres" id="4_n4mnt"]
 [ext_resource type="Texture2D" uid="uid://cajfvmaoymbqu" path="res://art/dice_roll_table/dice roll table texture.png" id="5_wg6qf"]
+[ext_resource type="ArrayMesh" uid="uid://c6r5nobiktvy0" path="res://art/dice/d4/d4 basic white.obj" id="7_hrxcx"]
 [ext_resource type="ArrayMesh" uid="uid://bdua2e0pyt2cv" path="res://art/dice/d20/d20 katse.obj" id="7_pqqv7"]
+[ext_resource type="Texture2D" uid="uid://bthr661croie1" path="res://art/dice/d4/d4white 02.png" id="8_l70yl"]
 [ext_resource type="Texture2D" uid="uid://1f8kegvijykh" path="res://art/dice/d20/d20 katse texture.png" id="8_p6ech"]
 [ext_resource type="PackedScene" uid="uid://dvg1qy47ch4f2" path="res://scenes/backgrounds.tscn" id="9_dycxt"]
 
@@ -33,6 +35,9 @@ diffuse_mode = 3
 albedo_texture = ExtResource("8_p6ech")
 roughness = 0.5
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3kbec"]
+albedo_texture = ExtResource("8_l70yl")
+
 [node name="Battle" type="Node3D"]
 script = ExtResource("1_4oy4p")
 
@@ -51,6 +56,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_g8dx1")
 transform = Transform3D(0.19, 0, 0, 0, 0.19, 0, 0, 0, 0.19, -5.9049, 0.174208, -0.0836678)
 mesh = ExtResource("7_pqqv7")
 surface_material_override/0 = SubResource("StandardMaterial3D_bjs6m")
+
+[node name="D4BasicWhite" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.19, 1.66103e-08, 0, -1.66103e-08, -0.19, 0, 0, 0, 0.19, -5.12902, 0.181089, -0.0641342)
+mesh = ExtResource("7_hrxcx")
+surface_material_override/0 = SubResource("StandardMaterial3D_3kbec")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.101, 1.454, 0.610045)
